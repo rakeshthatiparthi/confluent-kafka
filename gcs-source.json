@@ -1,0 +1,24 @@
+{
+  "name": "gcs-source",
+  "config": {
+    "connector.class": "io.confluent.connect.gcs.GcsSourceConnector",
+    "tasks.max": "1",
+
+    "mode": "GENERIC",
+    "topics.dir": "quickstart",
+    "topic.regex.list": "gcs-json-topic:.*",
+
+    "format.class": "io.confluent.connect.gcs.format.json.JsonFormat",
+
+    "gcs.bucket.name": "confluent-topics",
+    "gcs.credentials.path": "/tmp/gcp-sa-key.json",
+
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "key.converter.schemas.enable": "false",
+
+    "confluent.topic.bootstrap.servers": "broker:29092",
+    "confluent.topic.replication.factor": "1"
+  }
+}

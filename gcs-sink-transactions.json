@@ -1,0 +1,36 @@
+{
+  "name": "gcs-sink-transactions",
+  "config": {
+    "connector.class": "io.confluent.connect.gcs.GcsSinkConnector",
+    "tasks.max": "1",
+
+    "topics": "transactions",
+
+    "gcs.bucket.name": "confluent-topics",
+    "gcs.credentials.path": "/tmp/gcp-sa-key.json",
+
+    "format.class": "io.confluent.connect.gcs.format.json.JsonFormat",
+    "topics.dir": "topics",
+
+    "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+    "locale": "en_US",
+    "timezone": "Asia/Kolkata",
+    "path.format": "'day'=dd/'hour'=HH/'minute'=mm",
+
+    "partition.duration.ms": "300000",
+    "rotate.interval.ms": "300000",
+    "flush.size": "1000",
+
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "key.converter.schemas.enable": "false",
+
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+
+    "storage.class": "io.confluent.connect.gcs.storage.GcsStorage",
+
+    "confluent.topic.bootstrap.servers": "broker:29092",
+    "confluent.topic.replication.factor": "1",
+    "confluent.license": ""
+  }
+}

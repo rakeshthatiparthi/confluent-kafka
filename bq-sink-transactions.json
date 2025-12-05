@@ -1,0 +1,30 @@
+{
+  "name": "bq-sink-transactions",
+  "config": {
+    "connector.class": "com.wepay.kafka.connect.bigquery.BigQuerySinkConnector",
+    "tasks.max": "1",
+
+    "topics": "transactions-gcs-to-topic",
+
+    "project": "learn-gcp-479215",
+    "defaultDataset": "raw",
+
+    "keySource": "FILE",
+    "keyfile": "/tmp/gcp-sa-key.json",
+
+    "autoCreateTables":"false",
+    "sanitizeTopics": "true",
+    "partitioningType": "NONE",
+    "bigQueryPartitionDecorator": "false",
+
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "key.converter.schemas.enable": "false",
+
+    "transforms": "AddAck",
+    "transforms.AddAck.type": "org.apache.kafka.connect.transforms.InsertField$Value",
+    "transforms.AddAck.static.field": "ack_status",
+    "transforms.AddAck.static.value": "SUCCESS"
+  }
+}
